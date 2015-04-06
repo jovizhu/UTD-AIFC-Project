@@ -110,10 +110,10 @@ public class AccessControl {
 			currentDomain = Configuration.prop.getProperty("current-domain");
 
 			if (!req.getSourceDomain().equals(currentDomain)) {
-				//domainRole = CARoleMapping.getDomainRole(req.getSourceDomain(),req.getSourceRole(), currentDomain);
+				domainRole = RoleMapping.getDomainRole(req.getSourceDomain(),req.getSourceRole(), currentDomain);
 				
 				////////////////////////////////////////////////////////
-				
+/*				
 				
 				String requestString =  "crossDomain="+req.getSourceDomain()
 							+"crossDomainRole=" + req.getSourceRole()
@@ -121,7 +121,7 @@ public class AccessControl {
 				
 				URL url;
 				try {
-					String roleMappingURL = Configuration.prop.getProperty("DomainB-RoleMapping");
+					String roleMappingURL = Configuration.prop.getProperty(currentDomain+"-RoleMapping");
 					url = new URL(roleMappingURL+ requestString);
 				
 				HttpURLConnection conn = (HttpURLConnection) url
@@ -154,26 +154,7 @@ public class AccessControl {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					
-				}
-				
-				
-				
-				
-				
-				
-				//////////////////////////////////////////////////////////
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+				}*/
 				
 				Logger.printLog("request domain role has been updated to current domain role "+domainRole, 1);
 			} else {
@@ -205,16 +186,20 @@ public class AccessControl {
 
 			// Step3.5: insert into the request into resource database
 			if (decision
+					&& Configuration.prop.getProperty(
+							"provenance-record").equals("true")
 					&& !Configuration.prop.getProperty(
 							"provenance-accesscontrol").equals("true") ) {
 				//System.out.println("step 4.5");
-			
 				ResourceOperation.UpdateResouceDB(req);
-			}
-			else if (decision
+				int provenanceRef = ProvenanceOperations.RecordProvenance(req);
+			} else if (decision
+					&& Configuration.prop.getProperty(
+							"provenance-record").equals("true")
 					&& Configuration.prop.getProperty(
 							"provenance-accesscontrol").equals("true")) {
-				Logger.printLog("provenance-accesscontrol check " +req.getDoAction(), 4);
+				
+				Logger.printLog("provenance access control check " +req.getDoAction(), 4);
 				
 				if (req.getDoAction().equals("READ")) {
 					ArrayList<ContributorRecord> cons = ContributorOperations
@@ -232,7 +217,7 @@ public class AccessControl {
 								+ contributorRecord.getPredResourceName() + ":"
 								+ contributorRecord.getPredDomain();
 					
-						Logger.printLog("contributorRecord  " + contributorRecord.getPredResourceName() + ":"
+						Logger.printLog("contributor Record  " + contributorRecord.getPredResourceName() + ":"
 								+ contributorRecord.getPredDomain(), 1);
 					}
 
@@ -294,7 +279,7 @@ public class AccessControl {
 											(conn.getInputStream())));
 
 							String output;
-							Logger.printLog("Output from Server .... \n",1);
+							Logger.printLog("Contributor validation Output from Server .... ",1);
 							while ((output = br.readLine()) != null) {
 								Logger.printLog(output, 1);
 								if (output.equals("true")) {
@@ -589,10 +574,10 @@ public class AccessControl {
 			currentDomain = Configuration.prop.getProperty("current-domain");
 
 			if (! userDomain.equals(currentDomain)) {
-				//domainRole = CARoleMapping.getDomainRole(userDomain,userRole, currentDomain);
+				domainRole = RoleMapping.getDomainRole(userDomain,userRole, currentDomain);
 				////////////////////////////////////////////
 
-				String requestString =  "crossDomain="+userDomain
+			/*	String requestString =  "crossDomain="+userDomain
 							+"crossDomainRole=" + userRole
 							+"domainname="+currentDomain;
 				
@@ -632,7 +617,7 @@ public class AccessControl {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					
-				}
+				}*/
 				/////////////////////////////////////////////
 				Logger.printLog("request domain role has been updated to current domain role "+domainRole, 1);
 			} else {

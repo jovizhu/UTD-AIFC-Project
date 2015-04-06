@@ -12,11 +12,13 @@ performance.
 import java.sql.SQLException;
 
 
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 import utd.aifc.credauth.CARoleMapping;
 
 @Path("AIFC-CA")
@@ -73,8 +75,8 @@ public class CADBRESTfulValidator {
 				@QueryParam("crossDomainRole") String crossDomainRole,				
 				@QueryParam("domainname") String domainname)
 				{
+					System.out.println("crossDomain "+crossDomain+"  crossDomainRole "+crossDomain+" domainname "+domainname);
 					CARoleMapping.getDomainRole(crossDomain, crossDomainRole, domainname);
-			
 					return false;		
 			
 		}

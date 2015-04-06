@@ -1,0 +1,54 @@
+#Sat May 03 18:19:31 CDT 2014
+
+provenance-accesscontrol = true
+
+#Current Domian for access control unit role mapping
+current-domain=DomainB
+
+debug-level = 5
+
+#Database User Pass for each domain
+DomainA-database-URL= 10.176.128.24:3306/aifc-database-domaina-1028
+DomainA-database-password=root
+DomainA-database-user=root
+
+DomainB-database-URL= 10.176.128.21:3306/aifc-database-domainb-1028
+DomainB-database-password=root
+DomainB-database-user=root
+
+DomainC-database-URL= 192.168.0.109:3306/aifc-database-domainc-1028
+DomainC-database-password=root
+DomainC-database-user=root
+
+DomainD-database-URL= 192.168.0.110:3306/aifc-database-domaind-1028
+DomainD-database-password=root
+DomainD-database-user=root
+
+policy-path = Policies-1028
+policy-files = POLICY1.XML;POLICY2.XML;POLICY3.XML;POLICY4.XML;POLICY5.XML;POLICY6.XML;POLICY7.XML
+
+domain-list = DomainA;DomainB;DomainC;DomainD;
+#Access control validator for each domain
+DomainA-validator = http://10.176.128.24:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/validateRequest?
+DomainB-validator = http://10.176.128.21:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/validateRequest?
+DomainC-validator = http://192.168.0.109:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/validateRequest?
+DomainD-validator = http://192.168.0.110:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/validateRequest?
+
+#Access control validator for each domain
+DomainA-contributor-validator = http://10.176.128.24:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/validateContributor?
+DomainB-contributor-validator = http://10.176.128.21:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/validateContributor?
+DomainC-contributor-validator = http://192.168.0.109:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/validateContributor?
+DomainD-contributor-validator = http://192.168.0.110:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/validateContributor?
+
+
+#Get control list for each domain
+DomainA-getContributor = http://10.176.128.24:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/getContributor?
+DomainB-getContributor = http://10.176.128.21:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/getContributor?
+DomainC-getContributor = http://192.168.0.109:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/getContributor?
+DomainD-getContributor = http://192.168.0.110:8080/AIFC-RESTful-validator/aifc/RESTfulAccessControl/getContributor?
+
+#Authenticate user from each domain
+DomainB-authentication = http://10.176.128.21:8080/AIFC-CA-CredAuth/aifcca/CADBValidator/loginCA?
+
+#Get Domain Role Mapping
+DomainB-RoleMapping = http://10.176.128.21:8080/AIFC-CA-CredAuth/aifcca/AIFC-CA/getDomainRole?

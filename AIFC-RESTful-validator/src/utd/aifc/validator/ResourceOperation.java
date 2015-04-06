@@ -107,7 +107,7 @@ public class ResourceOperation {
 	
 	public static boolean UpdateResouceDB(RequestRecord req) {
 		
-		Logger.printLog("UpdateResourceDB "+req.getAccessResource()+ " " +req.getAccessDomain(), 3);
+		Logger.printLog("Update ResourceDB "+req.getAccessResource()+ " " +req.getAccessDomain(), 3);
 		
 		boolean result = false;
 		try {

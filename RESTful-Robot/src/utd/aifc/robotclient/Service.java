@@ -16,6 +16,7 @@ import utd.aifc.credauth.CAValidator;
 import utd.aifc.validator.AccessControl;
 import utd.aifc.validator.Configuration;
 import utd.aifc.validator.DBConnector;
+import utd.aifc.validator.RequestRecord;
 /**
  * @author DomainA
  *
@@ -171,6 +172,31 @@ public class Service {
 		}
 	}
 	
+	public void receive_robot(String resourceName, String domainName, String userName,String roleName,String userDomain)
+	{
+		
+			
+			RequestRecord req = new RequestRecord();
+			req.setAccessResource(resourceName);
+			req.setSourceDomain(domainName);
+			req.setSourceUserName(userName);
+			req.setSourceRole(roleName);
+			req.setAccessDomain(userDomain);
+			req.setDoAction("READ");
+
+			// external access control
+			// validating credential
+
+				//System.out.println("Validation Successful");
+				
+				//Configuration.loadfortesting("afic-config.properties");
+				boolean result = AccessControl.validateRequest(req);
+				
+				if(result)
+				{
+					//System.out.println("READ Access can be given. Result is True");
+				}
 	
 	
+	}
 	}
